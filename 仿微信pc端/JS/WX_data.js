@@ -11,7 +11,7 @@ var WXdata = {
 		{
 			id:1,
 			name:"张三",
-			istalking:"false",
+			istalking:"true",
 			isUser:false,
 			photo:"../img/photo2.png",
 			massage:[]
@@ -19,7 +19,7 @@ var WXdata = {
 		{
 			id:2,
 			name:"李四",
-			istalking:"false",
+			istalking:"true",
 			isUser:false,
 			photo:"../img/photo1.png",
 			massage:[]
