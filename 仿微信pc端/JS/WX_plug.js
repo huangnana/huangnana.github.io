@@ -71,8 +71,8 @@
 		}
 		var ul = $("<ul class='tanBox'></ul>");
 		var str = "";
-		ul.css("left",event.pageX);
-		ul.css("top",event.pageY)
+		ul.css("left",event.clientX);
+		ul.css("top",event.clientY)
 		for (var i = 0 ;i<arr.length;i++) {
 			str+='<li>'+arr[i].title+'</li>'		
 		}

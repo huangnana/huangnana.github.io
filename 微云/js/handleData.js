@@ -87,7 +87,6 @@ var handle = {
 		idArr:[1,2,3,4]
 		1的子孙数据[{},{}]
 		2的子孙数据[{},{}]
-
 		[{},{},{},{}]
 	*/ 
 	getChildsAllByIdarr:function(data,idArr){

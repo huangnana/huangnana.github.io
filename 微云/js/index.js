@@ -18,7 +18,7 @@ var topBar=document.getElementById("topBar"); /*获取工具栏区域*/
 //操作元素
 var leftList=Content.getElementsByClassName("con_left")[0];
 var rightBottom=Content.getElementsByClassName("rightBottom")[0];
-var topBox=Content.getElementsByClassName("topBox")[0];/*调用页面渲染函数生成初始状态下导航区*/
+var topBox=content.getElementsByClassName("topBox")[0];/*调用页面渲染函数生成初始状态下导航区*/
 var toolRight=topBar.getElementsByClassName("top_right")[0];/*获取工具栏区域右侧区域*/
 //var changBnt=toolRight.getElementsByTagName("div")[0];/*获取工具栏区域右侧区域转换显示形式按钮*/
 var datas = data.files;
@@ -68,7 +68,7 @@ topBox.addEventListener("click",function(ev){  /*给右侧侧导航区添加点�
 },false)
 //.....................................文件夹单选......................................
 var filets = rightBottom.getElementsByTagName("li");/*获取到所有生成的div*/
-var topCheck = Content.getElementsByClassName("checkbox")[0];
+var topCheck = content.getElementsByClassName("checkbox")[0];
 var selArr = [];
 rightBottom.addEventListener("click",function(ev){ /*给右侧内容区的文件夹添加单击处理完成选中文件夹的功能 */
 	var tage = ev.target;
@@ -81,7 +81,7 @@ rightBottom.addEventListener("click",function(ev){ /*给右侧内容区的文件
 ///.....................*给右侧内容区的文件夹添加点击处理完成打开文件夹的功能 */点击进入..................
 rightBottom.addEventListener("click",function(ev){  
 	var tage = ev.target;
-	if(tool.parent(tage,".tCheak")) return;
+	if(tool.parent(tage,".active")) return;
 	if(tage.nodeName==="SPAN"||tage.nodeName==="INPUT") return;
 	if(tool.parent(tage,".text")){
 		tage = tool.parent(tage,".text");
@@ -476,9 +476,10 @@ function getRightTextById(id){
 //每次渲染页面都需要去执行的程序
 function ori(id){
 	create.render(topBox,create.createNavHtml(id)); /*根据点击的文件夹id改变导航区的路径显示 */
+	create.render(rightBottom,create.createRPicHtml(id));
 	tool.removeClass(getleftDivById(last),"active"); /*清除上一个 */
 	tool.addClass(getleftDivById(id),"active");  /*操作自己 */
-//	fnopen(getleftDivById(id));
+	fnopen(getleftDivById(id));
 //	changRb(id);
 	setBg(datas,id)
 	last = id;

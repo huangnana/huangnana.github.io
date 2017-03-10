@@ -28,20 +28,26 @@
 	resize();page
 //.............................. 渲染页面...........................................
 // 把数据存储到local storage
-	var  storage ={
-		save:function(key,value){
-			// 设置localStorage  字符串转化为jsonp对象格式
-			localStorage.setItem(key,JSON.stringify(value))
-		},
-		fetch:function(key){
-			// 从localStorage中取值 
-			return JSON.parse(localStorage.getItem(key)) || [];
+	// local storage不兼容IE
+	if(!!window.ActiveXObject||"ActiveXObject" in window){
+		var data = WXdata.list;
+	}else{
+		var  storage ={
+			save:function(key,value){
+				// 设置localStorage  字符串转化为jsonp对象格式
+				window.localStorage.setItem(key,JSON.stringify(value))
+			},
+			fetch:function(key){
+				// 从localStorage中取值 
+				return JSON.parse(window.localStorage.getItem(key)) || [];
+			}
 		}
+		if(storage.fetch("weixin").length==0){
+			storage.save("weixin",WXdata.list)
+		}
+		var data = storage.fetch("weixin");
 	}
-	if(storage.fetch("weixin").length==0){
-		storage.save("weixin",WXdata.list)
-	}
-	var data = storage.fetch("weixin");
+	
 	var vm = new Vue({
 		el:".pageContent",
 		data:{
@@ -55,7 +61,11 @@
 		watch:{  // Vue提供监测数据变化的方法
 			list:{ //要检测的数据呢
 				handler:function(){  //数据发生变化时执行的函数
-					storage.save("weixin",this.list)
+					if(!!window.ActiveXObject||"ActiveXObject" in window){
+						return;
+					}else{
+						storage.save("weixin",this.list);
+					}
 				},
 				deep:true  //是否深度检测
 			}
